@@ -1,0 +1,1 @@
+File created with Node.js - Text added later with "appendFileSync"
