@@ -19,10 +19,15 @@ yargs.command({
 			describe: 'Note title',
 			demandOption: true, // --> required argument (default to false)
 			type: 'string'
+		},
+		'body' : {
+			describe: 'Note content',
+			demandOption: true,
+			type: 'string'
 		}
 	},
 	handler: (argv) => {
-		log('Adding a new note', argv)
+		log('Note title: '+argv.title, '-- Note content: ' + argv.body )
 	}
 })
 
