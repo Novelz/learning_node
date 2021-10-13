@@ -1,7 +1,58 @@
-/**
- * Require a personal module that export just 1 function
- * and use it in this main file
- */
+const chalk = require('chalk')
+const yargs = require('yargs')
 const getNotes = require('./notes.js')
 
-console.log(getNotes())
+const log = console.log
+const command = process.argv[2]
+
+//Custom version
+yargs.version('1.0.1')
+
+//Custom commands [add, remove, read, list]
+
+//Create add command
+yargs.command({
+	command: 'add',
+	describe: 'Add a new note',
+	builder: {
+		'title' : {
+			describe: 'Note title',
+			demandOption: true, // --> required argument (default to false)
+			type: 'string'
+		}
+	},
+	handler: (argv) => {
+		log('Adding a new note', argv)
+	}
+})
+
+//Create remove command
+yargs.command({
+	command: 'remove',
+	describe: 'Remove a note',
+	handler: () => {
+		log('Removing a note')
+	}
+})
+
+//Create read command
+yargs.command({
+	command: 'read',
+	describe: 'Read the content of a note',
+	handler: () => {
+		log('This is the content of your note')
+	}
+})
+
+//Create list command
+yargs.command({
+	command: 'list',
+	describe: 'List all the notes',
+	handler: () => {
+		log('These are all the notes available')
+	}
+})
+
+
+// Initialize yargs parsing
+yargs.parse()
