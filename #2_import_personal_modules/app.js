@@ -1,6 +1,10 @@
 /**
- * Require a personal module that export just 1 function
- * and use it in this main file
+ * # How to import custom modules
+ * 
+ * Require a personal module and use it in this main file
+ * 
+ * Terminal command:
+ * > node app.js
  */
 const getNotes = require('./notes.js')
 

@@ -1,4 +1,11 @@
-// this is the package that can be used to parse the cli arguments
+/**
+ * # Parse user input
+ * 
+ * If the parameter submitted by the user are in the format --flag_name="argument_value"
+ * the process package wont parse them for us 
+ * 
+ * To parse them and access them in an easier way, we can use yargs
+ */
 const yargs = require('yargs') 
 
 //console.log(yargs.argv)

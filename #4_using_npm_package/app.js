@@ -1,3 +1,10 @@
+/**
+ * # Use an npm package
+ * 
+ * Terminal command:
+ * > node app.js
+ * 
+ */
 const chalk = require('chalk');
 const log = console.log;
 
