@@ -1,4 +1,11 @@
+/**
+ * # Simple app for the management of notes through the cli
+ * 
+ */
+
 const fs = require('fs')
+const chalk = require('chalk')
+const log = console.log
 
 const getNotes = () => {
 	return "Your notes..."
@@ -7,21 +14,37 @@ const getNotes = () => {
 // take the content of notes.json, update it and then write the new content in the file
 const addNote = (title, body) => {
 	const notes = loadNotes()
-	const duplicateMotes = notes.filter((note) => {
+	const duplicateNotes = notes.filter((note) => {
 		return note.title === title
 	})
 
-	if (duplicateMotes.length === 0) {
+	if (duplicateNotes.length === 0) {
 		notes.push({
 			title: title,
 			body: body
 		})
 		saveNotes(notes)
-		console.log('New note added')
+		log(chalk.green('New note added'))
 	} else {
-		console.log('Note already existing')
+		log(chalk.yellow('Note already existing'))
 	}
+}
 
+const removeNote = (title) => {
+	const notes = loadNotes()
+	//keep only the note with a different title
+	const notesToKeep = notes.filter((note) => {
+		return note.title !== title
+	})
+
+	//if the notesToKeep are the same of the original array
+	if(notesToKeep.length === notes.length) {
+		log(chalk.red.inverse('No note to remove'))
+	} else {
+		//write the notesToKeep in the file
+		saveNotes(notesToKeep)
+		log(chalk.green.inverse('Note removed'))
+	}
 }
 
 //save to the notes.json file the updated notes object
@@ -43,5 +66,6 @@ const loadNotes = () => {
 
 module.exports = {
 	getNotes: getNotes,
-	addNote: addNote
+	addNote: addNote,
+	removeNote: removeNote
 }
