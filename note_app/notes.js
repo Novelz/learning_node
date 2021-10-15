@@ -7,18 +7,22 @@ const fs = require('fs')
 const chalk = require('chalk')
 const log = console.log
 
-const getNotes = () => {
-	return "Your notes..."
-}
-
 // take the content of notes.json, update it and then write the new content in the file
 const addNote = (title, body) => {
 	const notes = loadNotes()
-	const duplicateNotes = notes.filter((note) => {
-		return note.title === title
-	})
 
-	if (duplicateNotes.length === 0) {
+	//return the first item that match the function
+	const duplicateNote = notes.find(note => note.title === title)
+
+	/** 
+	    FILTER return all the items that match the function
+		
+		const duplicateNotes = notes.filter((note) => {
+			return note.title === title
+		})
+	**/
+
+	if (!duplicateNote) {
 		notes.push({
 			title: title,
 			body: body
@@ -47,6 +51,24 @@ const removeNote = (title) => {
 	}
 }
 
+const readNote = (title) => {
+	const notes = loadNotes()
+
+	const matchingNote = notes.find((note) => note.title === title) 
+
+	if(matchingNote) {
+		log(chalk.inverse(matchingNote.title), ' ' + matchingNote.body)
+	} else {
+		log(chalk.red('No note found'))
+	}
+} 
+
+const listNotes = () => {
+	const notes = loadNotes()
+	log(chalk.inverse('Your notes'))
+	notes.forEach(note => log('- '+note.title) )
+}
+
 //save to the notes.json file the updated notes object
 const saveNotes = (notes) => {
 	const dataJSON = JSON.stringify(notes)
@@ -65,7 +87,8 @@ const loadNotes = () => {
 }
 
 module.exports = {
-	getNotes: getNotes,
 	addNote: addNote,
-	removeNote: removeNote
+	removeNote: removeNote,
+	listNotes: listNotes,
+	readNote: readNote
 }
