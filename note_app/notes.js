@@ -53,7 +53,6 @@ const removeNote = (title) => {
 
 const readNote = (title) => {
 	const notes = loadNotes()
-
 	const matchingNote = notes.find((note) => note.title === title) 
 
 	if(matchingNote) {
